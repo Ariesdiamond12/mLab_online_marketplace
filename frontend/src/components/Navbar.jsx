@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../assets/images/Logo.png";
 import { LuSearch, LuShoppingBag } from "react-icons/lu";
 import { FiUser } from "react-icons/fi";
+import { IoMenuOutline } from "react-icons/io5";
+import { IoIosArrowDropdown } from "react-icons/io";
 import { NavLink, Link } from "react-router-dom";
 
 function Navbar() {
+  const [visible, setVisible] = useState(false);
+
   return (
     <div className="flex items-center justify-between py-5 font-medium">
       {/* Logo with Increased Size */}
@@ -67,12 +71,36 @@ function Navbar() {
         </div>
 
         <Link to="/cart" className="relative">
-  <LuShoppingBag className="w-7 h-7 cursor-pointer" />
-  <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white rounded-full text-[8px]">
-    5
-  </p>
-</Link>
+          <LuShoppingBag className="w-7 h-7 cursor-pointer" />
+          <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white rounded-full text-[8px]">
+            5
+          </p>
+        </Link>
 
+        <IoMenuOutline
+          className="w-7 h-7 cursor-pointer sm:hidden"
+          onClick={() => setVisible(true)}
+        />
+        {/* Sidebar Menu for small screens */}
+        <div
+          className={`absolute top-0 bottom-0 overflow-hidden bg-white transition-all ${
+            visible ? "w-full" : "w-0"
+          }`}
+        >
+          <div className="flex flex-col text-gray-600">
+            <div
+              onClick={() => setVisible(false)}
+              className="flex items-center gap-4 p-3 cursor-pointer"
+            >
+              <IoIosArrowDropdown className="h-4 rotate-180" />
+              <p>Back</p>
+            </div>
+            <NavLink className='py-2 pl-6 border'to='/'>Home</NavLink>
+            <NavLink className='py-2 pl-6 border'to='/shop'>Shop</NavLink>
+            <NavLink className='py-2 pl-6 border'to='/about'>About</NavLink>
+            <NavLink className='py-2 pl-6 border'to='/contact'>Contact</NavLink>
+          </div>
+        </div>
       </div>
     </div>
   );
