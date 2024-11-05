@@ -11,8 +11,9 @@ function Navbar() {
 
   return (
     <div className="flex items-center justify-between py-5 font-medium">
-      {/* Logo with Increased Size */}
-      <img src={Logo} className="w-48" alt="Logo" />
+      <Link to="/">
+        <img src={Logo} className="w-48" alt="Logo" />
+      </Link>
 
       {/* Navigation Links with Larger Text */}
       <ul className="flex gap-8 text-base text-gray-700">
@@ -95,10 +96,18 @@ function Navbar() {
               <IoIosArrowDropdown className="h-4 rotate-180" />
               <p>Back</p>
             </div>
-            <NavLink className='py-2 pl-6 border'to='/'>Home</NavLink>
-            <NavLink className='py-2 pl-6 border'to='/shop'>Shop</NavLink>
-            <NavLink className='py-2 pl-6 border'to='/about'>About</NavLink>
-            <NavLink className='py-2 pl-6 border'to='/contact'>Contact</NavLink>
+            <NavLink className="py-2 pl-6 border" to="/">
+              Home
+            </NavLink>
+            <NavLink className="py-2 pl-6 border" to="/shop">
+              Shop
+            </NavLink>
+            <NavLink className="py-2 pl-6 border" to="/about">
+              About
+            </NavLink>
+            <NavLink className="py-2 pl-6 border" to="/contact">
+              Contact
+            </NavLink>
           </div>
         </div>
       </div>
