@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Logo from "../assets/images/Logo.png";
 import { LuSearch, LuShoppingBag } from "react-icons/lu";
 import { FiUser } from "react-icons/fi";
 import { IoMenuOutline } from "react-icons/io5";
 import { IoIosArrowDropdown } from "react-icons/io";
 import { NavLink, Link } from "react-router-dom";
+import { ShopContext } from "../context/ShopContext";
 
 function Navbar() {
   const [visible, setVisible] = useState(false);
+
+  const {setShowSearch} = useContext(ShopContext);
 
   return (
     <div className="flex items-center justify-between py-5 font-medium">
@@ -35,8 +38,8 @@ function Navbar() {
         </NavLink>
       </ul>
 
-      <div className="flex items-center gap-8">
-        <LuSearch className="w-7 h-6" />
+      <div className="flex items-center gap-8 cursor-pointer">
+        <LuSearch className="w-7 h-6" onClick={() =>setShowSearch(true)} />
 
         <div className="relative group">
           <div className="cursor-pointer flex items-center">

@@ -5,6 +5,7 @@ import LatestProducts from "../components/LatestProducts";
 import OurPolicy from "../components/OurPolicy";
 import Footer from "../components/Footer";
 import Offers from "../components/Offers";
+import SearchBar from "../components/SearchBar";
 
 function Home() {
   return (

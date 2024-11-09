@@ -4,6 +4,7 @@ import { ShopContext } from "../context/ShopContext";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import Title from "../components/Title";
 import ProductItem from "../components/ProductItem";
+import SearchBar from "../components/SearchBar";
 
 function Shop() {
   const { products } = useContext(ShopContext);
@@ -11,6 +12,7 @@ function Shop() {
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
+  const [sortType, setSortType] = useState('brand')
 
   const toggleCategory = (e) => {
     if (category.includes(e.target.value)) {
@@ -24,7 +26,7 @@ function Shop() {
     if (subCategory.includes(e.target.value)) {
       setSubCategory((prev) => prev.filter((item) => item !== e.target.value));
     } else {
-      setCategory((prev) => [...prev, e.target.value]);
+      setSubCategory((prev) => [...prev, e.target.value]);
     }
   };
 
@@ -45,17 +47,40 @@ function Shop() {
     setFilterProducts(productsCopy);
   };
 
-  useEffect(() => {
-    setFilterProducts(products);
-  }, []);
+  const sortProduct = () => {
+    let fpCopy = filterProducts.slice();
+
+    switch (sortType) {
+      case `low-high`:
+        setFilterProducts(fpCopy.sort((a, b) => a.price - b.price));
+        break;
+
+      case `high-low`:
+        setFilterProducts(fpCopy.sort((a, b) => b.price - a.price));
+        break;
+
+      default:
+        applyFilter();
+        break;
+    }
+  };
+
+  // useEffect(() => {
+  //   setFilterProducts(products);
+  // }, []);
 
   useEffect(() => {
     applyFilter();
   }, [category, subCategory]);
 
+  useEffect(() => {
+    sortProduct();
+  }, sortType)
+
   return (
     <div>
       <Navbar />
+      <SearchBar/>
       <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
         {/* Left Side: Filter Options */}
         <div className="min-w-60">
@@ -167,7 +192,7 @@ function Shop() {
           <div className="flex justify-between items-center ">
             <p className="font-normal text-lg">Product List</p>
             {/* Product Sort */}
-            <select className="border-2 border-gray-300 text-sm px-2 rounded-lg h-10 w-40">
+            <select onChange={(e)=>setSortType(e.target.value)} className="border-2 border-gray-300 text-sm px-2 rounded-lg h-10 w-40">
               <option value="brand">Sort by: Brand</option>
               <option value="stock">Sort by: Stock</option>
               <option value="price">Sort by: Price</option>

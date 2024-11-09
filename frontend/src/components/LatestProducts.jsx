@@ -3,6 +3,7 @@ import Shop from "../pages/Shop";
 import { ShopContext } from "../context/ShopContext";
 import Title from "./Title";
 import ProductItem from "./ProductItem";
+import SearchBar from "./SearchBar";
 
 function LatestProducts() {
   const { products } = useContext(ShopContext);

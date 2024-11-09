@@ -6,8 +6,9 @@ export const ShopContext = createContext();
 const ShopContextProvider = (props) => {
   const currency = "R";
   const delivery_fee = 10; // Keeping it a number, not a string for calculations
-
   const [cartItems, setCartItems] = useState({}); // Initialize cart items
+  const [showSearch, setShowSearch] = useState(false);
+  const [search, setSearch] = useState("");
 
   // Define getCartAmount to calculate subtotal
   const getCartAmount = () => {
@@ -26,12 +27,18 @@ const ShopContextProvider = (props) => {
     products,
     currency,
     delivery_fee,
+    search,
+    setSearch,
+    showSearch,
+    setShowSearch,
     cartItems,
     setCartItems,
     getCartAmount,
   };
 
-  return <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>;
+  return (
+    <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>
+  );
 };
 
 export default ShopContextProvider;
